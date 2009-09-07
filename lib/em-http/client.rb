@@ -298,7 +298,8 @@ module EventMachine
     end
 
     def unbind
-      if @state == :finished
+      # mark all requests below 400 as success, otherwise invoke errback
+      if @state == :finished and @response_header.status < 400
         succeed(self) 
       else
         fail(self)

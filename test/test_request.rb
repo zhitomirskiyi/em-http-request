@@ -86,8 +86,8 @@ describe EventMachine::HttpRequest do
     EventMachine.run {
       http = EventMachine::HttpRequest.new('http://127.0.0.1:8080/fail').get
 
-      http.errback { failed }
-      http.callback { 
+      http.callback { failed }
+      http.errback { 
         http.response_header.status.should == 404
         EventMachine.stop
       }
